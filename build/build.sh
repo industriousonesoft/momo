@@ -94,10 +94,13 @@ case "$PACKAGE" in
       exit 0
     fi
 
+    #安装配置momo在macOS下的依赖库
     ./macos/install_deps.sh
 
+    #获取WebRTC的版本号
     source ./macos/_install/webrtc/VERSIONS
 
+    #获取CPU数目
     if [ -z "$JOBS" ]; then
       JOBS=`sysctl -n hw.logicalcpu_max`
       if [ -z "$JOBS" ]; then
@@ -105,8 +108,11 @@ case "$PACKAGE" in
       fi
     fi
 
+    #创建打包目录
     mkdir -p ../_build/$PACKAGE
+    #切换到打包目录
     pushd ../_build/$PACKAGE
+      #编译momo
       cmake \
         -DCMAKE_BUILD_TYPE=Release \
         -DMOMO_PACKAGE_NAME="macos" \
@@ -117,11 +123,13 @@ case "$PACKAGE" in
         -DWEBRTC_COMMIT="$WEBRTC_COMMIT" \
         ../..
       cmake --build . -j$JOBS
+    #切回当前目录
     popd
 
     if [ $FLAG_PACKAGE -eq 1 ]; then
+      #获得系统版本号
       MACOS_VERSION=`sw_vers -productVersion | cut -d '.' -f-2`
-
+      
       pushd ..
         # パッケージのバイナリを作る
         rm -rf _package/momo-${MOMO_VERSION}_macos-${MACOS_VERSION}

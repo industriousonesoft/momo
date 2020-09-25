@@ -69,6 +69,7 @@ int main(int argc, char* argv[]) {
   rtc::LogMessage::LogTimestamps();
   rtc::LogMessage::LogThreads();
 
+//设置文件日志sink
   std::unique_ptr<rtc::FileRotatingLogSink> log_sink(
       new rtc::FileRotatingLogSink("./", "webrtc_logs", kDefaultMaxLogFileSize,
                                    10));
@@ -77,6 +78,7 @@ int main(int argc, char* argv[]) {
     log_sink.reset();
     return 1;
   }
+//添加日志sink
   rtc::LogMessage::AddLogToStream(log_sink.get(), rtc::LS_INFO);
 
   auto capturer = ([&]() -> rtc::scoped_refptr<ScalableVideoTrackSource> {

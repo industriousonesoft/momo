@@ -1,0 +1,3 @@
+/Users/markcao/Documents/Github_Codes/momo/CMakeFiles/rebuild_cache.dir
+/Users/markcao/Documents/Github_Codes/momo/CMakeFiles/edit_cache.dir
+/Users/markcao/Documents/Github_Codes/momo/CMakeFiles/momo.dir
